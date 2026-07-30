@@ -72,12 +72,18 @@ class String
 	{
 		return (strcmp(str,t.str)>=0);
 	}
+	friend int my_strlen(const String &);
 };
+int my_strlen(const String &s)
+{
+    return strlen(s.str);
+}
 int main()
 {
 	String s1("Vector"),s2(s1),s3;
 	s3=s1+s2;
 	s3.getstring();
+	cout << my_strlen(s3) << endl;
 	cout << boolalpha;
 	cout << "s1==s2 : " << (s1 == s2) << endl;
 	cout << "s1!=s2 : " << (s1 != s2) << endl;
