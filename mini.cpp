@@ -76,12 +76,21 @@ class String
 	friend void my_strrev(String &);
 	friend void my_strupr(String &);
 	friend void my_strlwr(String &);
+	friend void my_strcpy(String &, const String &);
 	friend int my_strcmp(const String &, const String &);
 friend int my_strncmp(const String &, const String &,int );
 	friend char * my_strchr(const String &, char);
 	friend char * my_strrchr(const String &, char);
 };
-
+void my_strcpy(String &dest, const String &src)
+{
+    delete[] dest.str;
+    dest.str = new char[my_strlen(src) + 1];
+    int i;
+    for(i = 0; src.str[i] != '\0'; i++)
+        dest.str[i] = src.str[i];
+    dest.str[i] = '\0';
+}
 char * my_strrchr(const String &t, char ch)
 {
     char *p = NULL;
@@ -172,20 +181,9 @@ int main()
 	String s1("Vector"),s2(s1),s3;
 	char ch='V';
 	s3=s1+s2;
+	my_strcpy(s1,s3);
+	s1.getstring();
 	cout<<"my_strcmp "<<my_strcmp(s1,s2)<<endl;
-	s3.getstring();
-	my_strrev(s1);
-	s1.getstring();
-	my_strupr(s1);
-	s1.getstring();
-	my_strlwr(s1);
-	s1.getstring();
-	char *p=my_strrchr(s3,ch);
-	if(p)
-		cout<<"found"<<endl;
-		else
-		cout<<" not found"<<endl;
-	cout << my_strlen(s3) << endl;
 	cout << boolalpha;
 	cout << "s1==s2 : " << (s1 == s2) << endl;
 	cout << "s1!=s2 : " << (s1 != s2) << endl;
