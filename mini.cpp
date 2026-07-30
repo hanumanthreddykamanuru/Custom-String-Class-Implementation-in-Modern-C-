@@ -73,15 +73,35 @@ class String
 		return (strcmp(str,t.str)>=0);
 	}
 	friend int my_strlen(const String &);
+	friend void my_strrev(String &);
 };
-int my_strlen(const String &s)
+int my_strlen(const String &t)
 {
-    return strlen(s.str);
+    return strlen(t.str);
 }
+void my_strrev(String &t)
+{
+	char *p=t.str,*q=t.str;
+	while(*q)
+		q++;
+	q--;
+	char temp;
+	while(p<q)
+	{
+		temp=*p;
+		*p=*q;
+		*q=temp;
+		p++;
+		q--;
+	}
+}
+
 int main()
 {
 	String s1("Vector"),s2(s1),s3;
 	s3=s1+s2;
+	s3.getstring();
+	my_strrev(s3);
 	s3.getstring();
 	cout << my_strlen(s3) << endl;
 	cout << boolalpha;
