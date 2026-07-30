@@ -84,8 +84,29 @@ class String
 	friend char * my_strrchr(const String &, char);
 	friend void my_strcat(String &, const String &);
 	friend void my_strncat(String &, const String &, int);
+	friend char *my_strstr(const String &, const String &);
 
 };
+char *my_strstr(const String &t1, const String &t2)
+{
+	char *s=t1.str;
+	char *d=t2.str;
+	int i,j;
+	for(i=0;s[i];i++)
+	{
+		if(s[i]==d[0])
+		{
+			for(j=0;d[j];j++)
+			{
+				if(s[i+j]!=s[j])
+					break;
+			}
+			if(d[j]=='\0')
+				return &s[i];
+		}
+	}
+    return 0;
+}
 void my_strncat(String &dest, const String &src,int n)
 {
     int srclen = my_strlen(src);
