@@ -77,9 +77,11 @@ class String
 	friend void my_strupr(String &);
 	friend void my_strlwr(String &);
 	friend int my_strcmp(const String &, const String &);
+friend int my_strncmp(const String &, const String &,int );
 	friend char * my_strchr(const String &, char);
 	friend char * my_strrchr(const String &, char);
 };
+
 char * my_strrchr(const String &t, char ch)
 {
     char *p = NULL;
@@ -124,6 +126,19 @@ void my_strrev(String &t)
 		p++;
 		q--;
 	}
+}
+int my_strncmp(const String &t1, const String &t2,int n)
+{
+	int i = 0;
+	while(i<n && t1.str[i] != '\0' && t2.str[i] != '\0')
+	{
+		if(t1.str[i] != t2.str[i])
+			return t1.str[i] - t2.str[i];
+		i++;
+	}
+	if(i==n)
+		return 0;
+	return t1.str[i] - t2.str[i];
 }
 int my_strcmp(const String &t1, const String &t2)
 {
