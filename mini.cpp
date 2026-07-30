@@ -77,9 +77,21 @@ class String
 	friend void my_strupr(String &);
 	friend void my_strlwr(String &);
 	friend int my_strcmp(const String &, const String &);
-	friend char *my_strchr(const String &, char);
+	friend char * my_strchr(const String &, char);
+	friend char * my_strrchr(const String &, char);
 };
-char *my_strchr(const String &t, char ch)
+char * my_strrchr(const String &t, char ch)
+{
+    char *p = NULL;
+    for(int i = 0; t.str[i] != '\0'; i++)
+    {
+        if(t.str[i] == ch)
+            p = &t.str[i];
+    }
+    return p;
+}
+
+char * my_strchr(const String &t, char ch)
 {
     for(int i = 0; t.str[i] != '\0'; i++)
     {
@@ -153,7 +165,7 @@ int main()
 	s1.getstring();
 	my_strlwr(s1);
 	s1.getstring();
-	char *p=my_strchr(s3,ch);
+	char *p=my_strrchr(s3,ch);
 	if(p)
 		cout<<"found"<<endl;
 		else
