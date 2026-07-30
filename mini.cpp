@@ -11,7 +11,7 @@ class string
 	}
 	string(const char *t)							//Parameterized Constructor
 	{
-		str=new char[strlen(s)+1];
+		str=new char[strlen(t)+1];
 		strcpy(str,t);
 	}
 	string(string &t)								//Copy Constructor
