@@ -15,7 +15,7 @@ class String
 		str=new char[strlen(t)+1];
 		strcpy(str,t);
 	}
-	String(String &t)								// Copy Constructor
+	String(const String &t)								// Copy Constructor
 	{
 		str=new char[strlen(t.str)+1];
 		strcpy(str,t.str);
@@ -23,6 +23,30 @@ class String
 	~String()										// Destructor
 	{
 		delete []str;
+	}
+	void getstring()								// get string function
+	{
+		cout<<"String : "<< str <<endl;
+	}
+
+	String& operator=(const String &t)					// Operator =
+	{
+		if(this!=&t)
+		{
+			delete[]str;
+			str=new char[strlen(t.str)+1];
+			strcpy(str,t.str);
+		}
+		return *this;
+	}
+	String operator+(String &t)
+	{
+		String temp;
+		delete []temp.str;
+		temp.str=new char[strlen(str)+strlen(t.str)+1];
+		strcpy(temp.str,str);
+		strcat(temp.str,t.str);
+		return temp;
 	}
 	bool operator==(String &t)						// Operator ==
 	{
@@ -52,14 +76,15 @@ class String
 int main()
 {
 	String s1("Vector"),s2(s1),s3;
+	s3=s1+s2;
+	s3.getstring();
 	cout << boolalpha;
-
-cout << "s1==s2 : " << (s1 == s2) << endl;
-cout << "s1!=s2 : " << (s1 != s2) << endl;
-cout << "s1<s2  : " << (s1 < s2) << endl;
-cout << "s1>s2  : " << (s1 > s2) << endl;
-cout << "s1<=s2 : " << (s1 <= s2) << endl;
-cout << "s1>=s2 : " << (s1 >= s2) << endl;
+	cout << "s1==s2 : " << (s1 == s2) << endl;
+	cout << "s1!=s2 : " << (s1 != s2) << endl;
+	cout << "s1<s2  : " << (s1 < s2) << endl;
+	cout << "s1>s2  : " << (s1 > s2) << endl;
+	cout << "s1<=s2 : " << (s1 <= s2) << endl;
+	cout << "s1>=s2 : " << (s1 >= s2) << endl;
 
 }
 
