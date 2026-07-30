@@ -74,10 +74,16 @@ class String
 	}
 	friend int my_strlen(const String &);
 	friend void my_strrev(String &);
+	friend void my_strupr(String &);
+	friend void my_strlwr(String &);
+	friend int my_strcmp(const String &, const String &);
 };
 int my_strlen(const String &t)
 {
-    return strlen(t.str);
+	int i = 0;
+	while(t.str[i] != '\0')
+		i++;
+	return i;
 }
 void my_strrev(String &t)
 {
@@ -95,14 +101,45 @@ void my_strrev(String &t)
 		q--;
 	}
 }
-
+int my_strcmp(const String &t1, const String &t2)
+{
+	int i = 0;
+	while(t1.str[i] != '\0' && t2.str[i] != '\0')
+	{
+		if(t1.str[i] != t2.str[i])
+			return t1.str[i] - t2.str[i];
+		i++;
+	}
+	return t1.str[i] - t2.str[i];
+}
+void my_strupr(String &t)
+{
+	for(int i = 0; t.str[i] != '\0'; i++)
+	{
+		if(t.str[i] >= 'a' && t.str[i] <= 'z')
+			t.str[i] = t.str[i] - 32;
+	}
+}
+void my_strlwr(String &t)
+{
+	for(int i = 0; t.str[i] != '\0'; i++)
+	{
+		if(t.str[i] >= 'A' && t.str[i] <= 'Z')
+			t.str[i] = t.str[i] + 32;
+	}
+}
 int main()
 {
 	String s1("Vector"),s2(s1),s3;
 	s3=s1+s2;
+	cout<<"my_strcmp "<<my_strcmp(s1,s2)<<endl;
 	s3.getstring();
-	my_strrev(s3);
-	s3.getstring();
+	my_strrev(s1);
+	s1.getstring();
+	my_strupr(s1);
+	s1.getstring();
+	my_strlwr(s1);
+	s1.getstring();
 	cout << my_strlen(s3) << endl;
 	cout << boolalpha;
 	cout << "s1==s2 : " << (s1 == s2) << endl;
