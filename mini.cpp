@@ -77,7 +77,19 @@ class String
 	friend void my_strupr(String &);
 	friend void my_strlwr(String &);
 	friend int my_strcmp(const String &, const String &);
+	friend char *my_strchr(const String &, char);
 };
+char *my_strchr(const String &t, char ch)
+{
+    for(int i = 0; t.str[i] != '\0'; i++)
+    {
+        if(t.str[i] == ch)
+            return &t.str[i];
+    }
+
+    return 0;
+}
+
 int my_strlen(const String &t)
 {
 	int i = 0;
@@ -131,6 +143,7 @@ void my_strlwr(String &t)
 int main()
 {
 	String s1("Vector"),s2(s1),s3;
+	char ch='V';
 	s3=s1+s2;
 	cout<<"my_strcmp "<<my_strcmp(s1,s2)<<endl;
 	s3.getstring();
@@ -140,6 +153,11 @@ int main()
 	s1.getstring();
 	my_strlwr(s1);
 	s1.getstring();
+	char *p=my_strchr(s3,ch);
+	if(p)
+		cout<<"found"<<endl;
+		else
+		cout<<" not found"<<endl;
 	cout << my_strlen(s3) << endl;
 	cout << boolalpha;
 	cout << "s1==s2 : " << (s1 == s2) << endl;
