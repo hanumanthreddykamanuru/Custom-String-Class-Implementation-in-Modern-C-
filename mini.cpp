@@ -77,11 +77,24 @@ class String
 	friend void my_strupr(String &);
 	friend void my_strlwr(String &);
 	friend void my_strcpy(String &, const String &);
+	friend void my_strncpy(String &, const String &, int);
 	friend int my_strcmp(const String &, const String &);
 friend int my_strncmp(const String &, const String &,int );
 	friend char * my_strchr(const String &, char);
 	friend char * my_strrchr(const String &, char);
 };
+void my_strncpy(String &dest, const String &src,int n)
+{
+    delete[] dest.str;
+	int length=my_strlen(src);
+	if(n<length)
+		length=n;
+    dest.str = new char[length + 1];
+    int i;
+    for(i = 0;i<length; i++)
+        dest.str[i] = src.str[i];
+    dest.str[i] = '\0';
+}
 void my_strcpy(String &dest, const String &src)
 {
     delete[] dest.str;
@@ -181,7 +194,8 @@ int main()
 	String s1("Vector"),s2(s1),s3;
 	char ch='V';
 	s3=s1+s2;
-	my_strcpy(s1,s3);
+	s3.getstring();
+	my_strncpy(s1,s3,10);
 	s1.getstring();
 	cout<<"my_strcmp "<<my_strcmp(s1,s2)<<endl;
 	cout << boolalpha;
