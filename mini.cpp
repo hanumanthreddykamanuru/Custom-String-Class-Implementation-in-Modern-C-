@@ -79,51 +79,84 @@ class String
 	friend void my_strcpy(String &, const String &);
 	friend void my_strncpy(String &, const String &, int);
 	friend int my_strcmp(const String &, const String &);
-friend int my_strncmp(const String &, const String &,int );
+	friend int my_strncmp(const String &, const String &,int );
 	friend char * my_strchr(const String &, char);
 	friend char * my_strrchr(const String &, char);
+	friend void my_strcat(String &, const String &);
+	friend void my_strncat(String &, const String &, int);
+
 };
+void my_strncat(String &dest, const String &src,int n)
+{
+    int srclen = my_strlen(src);
+    int destlen= my_strlen(dest);
+	if(n<srclen)
+		srclen=n;
+    char *temp = new char[srclen + destlen + 1];
+    int i, j;
+    for(i = 0; i <destlen; i++)
+        temp[i] = dest.str[i];
+    for(j = 0; j < srclen; j++)
+        temp[i + j] = src.str[j];
+    temp[i + j] = '\0';
+    delete[] dest.str;
+    dest.str = temp;
+}
+void my_strcat(String &dest, const String &src)
+{
+    int srclen = my_strlen(src);
+    int destlen= my_strlen(dest);
+    char *temp = new char[srclen + destlen + 1];
+    int i, j;
+    for(i = 0; i <destlen; i++)
+        temp[i] = dest.str[i];
+    for(j = 0; j < srclen; j++)
+        temp[i + j] = src.str[j];
+    temp[i + j] = '\0';
+    delete[] dest.str;
+    dest.str = temp;
+}
 void my_strncpy(String &dest, const String &src,int n)
 {
-    delete[] dest.str;
+	delete[] dest.str;
 	int length=my_strlen(src);
 	if(n<length)
 		length=n;
-    dest.str = new char[length + 1];
-    int i;
-    for(i = 0;i<length; i++)
-        dest.str[i] = src.str[i];
-    dest.str[i] = '\0';
+	dest.str = new char[length + 1];
+	int i;
+	for(i = 0;i<length; i++)
+		dest.str[i] = src.str[i];
+	dest.str[i] = '\0';
 }
 void my_strcpy(String &dest, const String &src)
 {
-    delete[] dest.str;
-    dest.str = new char[my_strlen(src) + 1];
-    int i;
-    for(i = 0; src.str[i] != '\0'; i++)
-        dest.str[i] = src.str[i];
-    dest.str[i] = '\0';
+	delete[] dest.str;
+	dest.str = new char[my_strlen(src) + 1];
+	int i;
+	for(i = 0; src.str[i] != '\0'; i++)
+		dest.str[i] = src.str[i];
+	dest.str[i] = '\0';
 }
 char * my_strrchr(const String &t, char ch)
 {
-    char *p = NULL;
-    for(int i = 0; t.str[i] != '\0'; i++)
-    {
-        if(t.str[i] == ch)
-            p = &t.str[i];
-    }
-    return p;
+	char *p = NULL;
+	for(int i = 0; t.str[i] != '\0'; i++)
+	{
+		if(t.str[i] == ch)
+			p = &t.str[i];
+	}
+	return p;
 }
 
 char * my_strchr(const String &t, char ch)
 {
-    for(int i = 0; t.str[i] != '\0'; i++)
-    {
-        if(t.str[i] == ch)
-            return &t.str[i];
-    }
+	for(int i = 0; t.str[i] != '\0'; i++)
+	{
+		if(t.str[i] == ch)
+			return &t.str[i];
+	}
 
-    return 0;
+	return 0;
 }
 
 int my_strlen(const String &t)
@@ -193,10 +226,8 @@ int main()
 {
 	String s1("Vector"),s2(s1),s3;
 	char ch='V';
-	s3=s1+s2;
+	my_strncat(s3,s1,1);
 	s3.getstring();
-	my_strncpy(s1,s3,10);
-	s1.getstring();
 	cout<<"my_strcmp "<<my_strcmp(s1,s2)<<endl;
 	cout << boolalpha;
 	cout << "s1==s2 : " << (s1 == s2) << endl;
