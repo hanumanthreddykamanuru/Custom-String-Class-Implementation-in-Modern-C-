@@ -72,6 +72,12 @@ class String
 	{
 		return (strcmp(str,t.str)>=0);
 	}
+	char &operator [](int i)
+	{
+		return str[i];
+	}
+	friend istream& operator>>(istream& ,String &);
+	friend ostream& operator<<(ostream&,String );
 	friend int my_strlen(const String &);
 	friend void my_strrev(String &);
 	friend void my_strupr(String &);
@@ -87,9 +93,19 @@ class String
 	friend char *my_strstr(const String &, const String &);
 
 };
+istream& operator>>(istream& in,String &s)
+{
+	in>>s.str;
+	return in;
+}
+ostream& operator<<(ostream &out,String s)
+{
+	out<<s.str;
+	return out;
+}
 char *my_strstr(const String &t1, const String &t2)
 {
-	char *s=t1.str;
+	char *s=t1.str;									//taking string 1 and 2 and implementing strstr same as in C
 	char *d=t2.str;
 	int i,j;
 	for(i=0;s[i];i++)
@@ -98,44 +114,44 @@ char *my_strstr(const String &t1, const String &t2)
 		{
 			for(j=0;d[j];j++)
 			{
-				if(s[i+j]!=s[j])
+				if(s[i+j]!=d[j])
 					break;
 			}
 			if(d[j]=='\0')
 				return &s[i];
 		}
 	}
-    return 0;
+	return 0;
 }
 void my_strncat(String &dest, const String &src,int n)
 {
-    int srclen = my_strlen(src);
-    int destlen= my_strlen(dest);
+	int srclen = my_strlen(src);
+	int destlen= my_strlen(dest);
 	if(n<srclen)
 		srclen=n;
-    char *temp = new char[srclen + destlen + 1];
-    int i, j;
-    for(i = 0; i <destlen; i++)
-        temp[i] = dest.str[i];
-    for(j = 0; j < srclen; j++)
-        temp[i + j] = src.str[j];
-    temp[i + j] = '\0';
-    delete[] dest.str;
-    dest.str = temp;
+	char *temp = new char[srclen + destlen + 1];
+	int i, j;
+	for(i = 0; i <destlen; i++)
+		temp[i] = dest.str[i];
+	for(j = 0; j < srclen; j++)
+		temp[i + j] = src.str[j];
+	temp[i + j] = '\0';
+	delete[] dest.str;
+	dest.str = temp;
 }
 void my_strcat(String &dest, const String &src)
 {
-    int srclen = my_strlen(src);
-    int destlen= my_strlen(dest);
-    char *temp = new char[srclen + destlen + 1];
-    int i, j;
-    for(i = 0; i <destlen; i++)
-        temp[i] = dest.str[i];
-    for(j = 0; j < srclen; j++)
-        temp[i + j] = src.str[j];
-    temp[i + j] = '\0';
-    delete[] dest.str;
-    dest.str = temp;
+	int srclen = my_strlen(src);
+	int destlen= my_strlen(dest);
+	char *temp = new char[srclen + destlen + 1];
+	int i, j;
+	for(i = 0; i <destlen; i++)
+		temp[i] = dest.str[i];
+	for(j = 0; j < srclen; j++)
+		temp[i + j] = src.str[j];
+	temp[i + j] = '\0';
+	delete[] dest.str;
+	dest.str = temp;
 }
 void my_strncpy(String &dest, const String &src,int n)
 {
@@ -245,18 +261,207 @@ void my_strlwr(String &t)
 }
 int main()
 {
-	String s1("Vector"),s2(s1),s3;
-	char ch='V';
-	my_strncat(s3,s1,1);
-	s3.getstring();
-	cout<<"my_strcmp "<<my_strcmp(s1,s2)<<endl;
-	cout << boolalpha;
-	cout << "s1==s2 : " << (s1 == s2) << endl;
-	cout << "s1!=s2 : " << (s1 != s2) << endl;
-	cout << "s1<s2  : " << (s1 < s2) << endl;
-	cout << "s1>s2  : " << (s1 > s2) << endl;
-	cout << "s1<=s2 : " << (s1 <= s2) << endl;
-	cout << "s1>=s2 : " << (s1 >= s2) << endl;
+int op;
+	while(1)
+	{
+		cout<<"Enter your choice"<<endl;
+		cout<<"1.operators overlode 2.copy constructor 3.strcpy() 4.strncpy() 5.strcmp() 6.strncmp() 7.strcat() 8.strncat() 9.strrev() 10.strupper() 11.strlower() 12.strchr() 13.strrchr() 14.strstr() 15.strlen() 16.exit"<<endl;
+		cin>>op;
+		switch(op)
+		{
+			case 1:
+				{
+					String s1,s2,s3;
+					int a;
+					cout<<"Enter First String: ";
+					cin>>s1;
+					cout<<"Enter Second String: ";
+					cin>>s2;
+					cout<<boolalpha<<(s1>s2)<<endl;
+					cout<<boolalpha<<(s1<s2)<<endl;
+					cout<<boolalpha<<(s1<=s2)<<endl;
+					cout<<boolalpha<<(s1>=s2)<<endl;
+					cout<<boolalpha<<(s1==s2)<<endl;
+					cout<<boolalpha<<(s1!=s2)<<endl;
+					cout<<"'+' & '=' Operator overloaded : ";
+					s3=s1+s2;
+					cout<<s3<<endl;
+					cout<<"Enter index "<<endl;
+					cin>>a;
+					cout<<"Character is : "<<s1[a]<<endl;
+					cout<<endl;
+					break;
+				}
+					case 2:
+				{
+					String s1;
+					cout<<"Enter a String: ";
+					cin>>s1;
+					String s2(s1);
+					cout<<"Copy Constructor = "<<s2<<endl;
+					cout<<endl;
+					break;
+				}
+							case 3:
+				{
+					String s1,s2;
+					cout<<"Enter a String: ";
+					cin>>s1;
+					my_strcpy(s2,s1);
+					cout<<s2<<endl;
+					break;
+				}
+case 4:
+				{
+					int n;
+					String s1,s2,s3;
+					cout<<"Enter a String: ";
+					cin>>s1;
+					cout<<"Enter number of charactor"<<endl;
+					cin>>n;
+					my_strncpy(s2,s1,n);
+					cout<<s2<<endl;
+					break;
+				}
+			case 5:
+				{
+					String s1,s2;
+					cout<<"Enter First String: ";
+					cin>>s1;
+					cout<<"Enter Second String: ";
+					cin>>s2;
+					int cmp=my_strcmp(s1,s2);
+					if(cmp==0)
+						cout<<"equal"<<endl;
+						else
+							cout<<"not equal"<<endl;
+					break;
+				}
+			case 6:
+				{
+					String s1,s2;
+					int n;
+					cout<<"Enter First String: ";
+					cin>>s1;
+					cout<<"Enter Second String: ";
+					cin>>s2;
+					cout<<"Enter number of charactor"<<endl;
+					cin>>n;
+					int cmp=my_strcmp(s1,s2);
+					if(cmp==0)
+						cout<<"equal"<<endl;
+						else
+							cout<<"not equal"<<endl;
+					break;
+				}
+			case 7:
+				{
+					String s1,s2;
+					cout<<"Enter First String: ";
+					cin>>s1;
+					cout<<"Enter Second String: ";
+					cin>>s2;
+					my_strcat(s1,s2);
+					cout<<s1<<endl;
+					break;
+				}
+			case 8:
+				{
+					String s1,s2;
+					int n;
+					cout<<"Enter First String: ";
+					cin>>s1;
+					cout<<"Enter Second String: ";
+					cin>>s2;
+					cout<<"Enter number of charactor"<<endl;
+					cin>>n;
+					my_strncat(s1,s2,n);
+					cout<<s1<<endl;
+					break;
+				}
+			case 9:
+				{
+					String s1;
+					cout<<"Enter a String: ";
+					cin>>s1;
+					my_strrev(s1);
+					cout<<s1<<endl;
+					break;
+				}
+			case 10:
+				{
+					String s1;
+					cout<<"Enter a String: ";
+					cin>>s1;
+					my_strupr(s1);
+					cout<<s1<<endl;
+					break;
+				}
+			case 11:
+				{
+					String s1;
+					cout<<"Enter a String: ";
+					cin>>s1;
+					my_strlwr(s1);
+					cout<<s1<<endl;
+					break;
+				}
+			case 12:
+				{
+					String s1;
+					char ch;
+					cout<<"Enter a String: ";
+					cin>>s1;
+					cout<<"Enter a character"<<endl;
+					cin>>ch;
+					char *p=my_strchr(s1,ch);
+					if(p)
+						cout<<p[0]<<endl;
+					else
+						cout<<"Character not found"<<endl;
+					break;
+				}
+			case 13:
+				{
+					String s1;
+					char ch;
+					cout<<"Enter a String: ";
+					cin>>s1;
+					cout<<"Enter a character"<<endl;
+					cin>>ch;
+					char *p=my_strchr(s1,ch);
+					if(p)
+						cout<<p[0]<<endl;
+					else
+						cout<<"Character not found"<<endl;
+					break;
+				}
+			case 14:
+				{
+					String s1,s2;
+					cout<<"Enter main String: ";
+					cin>>s1;
+					cout<<"Enter Sub String: ";
+					cin>>s2;
+					my_strstr(s1,s2);
+					char *p=my_strstr(s1,s2);
 
+if(p)
+    cout<<p<<endl;
+else
+    cout<<"Substring not found"<<endl;
+					break;
+				}
+			case 15:
+				{
+					String s1;
+					cout<<"Enter a String: ";
+					cin>>s1;
+				cout<<my_strlen(s1)<<endl;
+					break;
+				}
+			case 16:exit(0);
+			default :cout<<"Unknown op"<<endl;
+		}
+	}
 }
-
