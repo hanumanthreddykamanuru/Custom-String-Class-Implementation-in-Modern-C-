@@ -347,7 +347,7 @@ case 4:
 					cin>>s2;
 					cout<<"Enter number of charactor"<<endl;
 					cin>>n;
-					int cmp=my_strcmp(s1,s2);
+					int cmp=my_strncmp(s1,s2,n);
 					if(cmp==0)
 						cout<<"equal"<<endl;
 						else
@@ -429,7 +429,7 @@ case 4:
 					cin>>s1;
 					cout<<"Enter a character"<<endl;
 					cin>>ch;
-					char *p=my_strchr(s1,ch);
+					char *p=my_strrchr(s1,ch);
 					if(p)
 						cout<<p[0]<<endl;
 					else
