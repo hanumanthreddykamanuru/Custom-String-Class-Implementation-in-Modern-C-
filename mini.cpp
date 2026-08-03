@@ -22,7 +22,11 @@ class String
 	}
 	~String()										// Destructor
 	{
+		if(str)
+		{
 		delete []str;
+		str=nullptr;
+		}
 	}
 	void getstring()								// get string function
 	{
